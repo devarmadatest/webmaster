@@ -9,7 +9,10 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
+        
+    <!-- Styles -->
+    <link href="/css/app.css" rel="stylesheet">
+        
         <!-- Styles -->
         <style>
             html, body {
@@ -67,10 +70,10 @@
     <body>
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
-                <div class="top-right links">
-                    <a href="{{ url('/login') }}">Login</a>
-                    <a href="{{ url('/register') }}">Register</a>
-                </div>
+            <div class="top-right links">
+                <a href="{{ url('/login') }}">Login</a>
+                <a href="{{ url('/register') }}">Register</a>
+            </div>
             @endif
 
             <div class="header">
@@ -83,7 +86,9 @@
                     <a href="/projects/create">New project</a>
                 </div>
             </div>
-            @yield('content')
+            <div class="content">
+                @yield('content')
+            </div>
         </div>
     </body>
 </html>

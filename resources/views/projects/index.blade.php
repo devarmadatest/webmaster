@@ -8,8 +8,21 @@ You have no projects
 @else
 <ul>
     @foreach( $projects as $project )
-    <li><a href="{{ route('projects.show', $project->id) }}">{{ $project->name }}</a></li>
+    <li>
+        {!! Form::open(array('class' => 'form-inline', 
+        'method' => 'DELETE',
+        'route' => array('projects.destroy', $project->id))) !!}
+        <a href="{{ route('projects.show', $project->id) }}">{{ $project->name }}</a>
+        (
+        {!! link_to_route('projects.edit', 'Edit', array($project->id), array('class' => 'btn btn-info')) !!},
+        {!! Form::submit('Delete', array('class' => 'btn btn-danger')) !!}
+        )
+        {!! Form::close() !!}
+    </li>
     @endforeach
 </ul>
 @endif
+<p>
+    {!! link_to_route('projects.create', 'Create Project') !!}
+</p>
 @endsection
