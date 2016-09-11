@@ -1,5 +1,8 @@
 @extends('app')
- 
+
 @section('content')
-    This is my /resources/views/tasks/create.blade.php file!
+<h2>Create Task for Project "{{ $project->name }}"</h2>
+{!! Form::model(new App\Task, ['route' => ['projects.tasks.store', $project->id], 'class'=>'']) !!}
+@include('tasks/partials/_form', ['submit_text' => 'Create Task'])
+{!! Form::close() !!}
 @endsection
