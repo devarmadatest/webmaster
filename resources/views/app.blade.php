@@ -9,10 +9,10 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-        
-    <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet">
-        
+
+        <!-- Styles -->
+        <link href="/css/app.css" rel="stylesheet">
+
         <!-- Styles -->
         <style>
             html, body {
@@ -21,7 +21,7 @@
                 font-family: 'Raleway', sans-serif;
                 font-weight: 100;
                 height: 100vh;
-                margin: 0;
+                margin:  0;
             }
 
             .full-height {
@@ -87,6 +87,11 @@
                 </div>
             </div>
             <div class="content">
+                @if (Session::has('message'))
+                <div class="flash alert-info">
+                    <p>{{ Session::get('message') }}</p>
+                </div>
+                @endif
                 @yield('content')
             </div>
         </div>

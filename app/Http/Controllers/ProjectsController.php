@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Input;
+use Redirect;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Project;
@@ -18,7 +20,8 @@ class ProjectsController extends Controller {
     }
 
     public function destroy(Project $project) {
-        return view('projects.destroy');
+        $project->delete();
+        return Redirect::route('projects.index')->with('message', 'Project deleted.');
     }
 
     public function edit(Project $project) {
@@ -30,11 +33,15 @@ class ProjectsController extends Controller {
     }
 
     public function update(Project $project) {
-        return view('projects.update');
+        $input = array_except(Input::all(), '_method');
+        $project->update($input);
+        return Redirect::route('projects.show', $project->id)->with('message', 'Project updated.');
     }
 
     public function store() {
-        //
+        $input = Input::all();
+        Project::create($input);
+        return Redirect::route('projects.index')->with('message', 'Project created');
     }
 
 }

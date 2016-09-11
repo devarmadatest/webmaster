@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Input;
+use Redirect;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Project;
@@ -18,7 +20,8 @@ class TasksController extends Controller {
     }
 
     public function destroy(Project $project, Task $task) {
-        return view('tasks.destroy');
+        $task->delete();
+        return Redirect::route('projects.show', $project->id)->with('message', 'Task deleted.');
     }
 
     public function edit(Project $project, Task $task) {
@@ -30,11 +33,16 @@ class TasksController extends Controller {
     }
 
     public function update(Project $project, Task $task) {
-        return view('tasks.update');
+        $input = array_except(Input::all(), '_method');
+        $task->update($input);
+        return Redirect::route('projects.tasks.show', [$project->id, $task->id])->with('message', 'Task updated.');
     }
 
-    public function store() {
-        //
+    public function store(Project $project) {
+        $input = Input::all();
+        $input['project_id'] = $project->id;
+        Task::create($input);
+        return Redirect::route('projects.show', $project->id)->with('message', 'Task created.');
     }
 
 }
